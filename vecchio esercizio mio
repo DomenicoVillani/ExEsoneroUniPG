@@ -1,0 +1,89 @@
+esercizio di start senza modifiche o miglioramenti da parte di chat gpt
+
+
+//Domenico Villani
+//Matricola:312642
+
+#include<stdio.h>
+
+int main(void) {
+
+
+int giorni=0,x=0,y=0,k=0,a=0,b=0;								//variabili per la memorizzazione dei giorni,delle azioni comprate e per il funzionamento dei cicli
+int indiceS=0,indiceD=0,guadagno=0;								//variabili per la memorizzazione dell'indice di destra e di sinistra e per la memorizzazione del guadagno
+
+
+printf("inserisci numero giorni: ");							//inserimento numero dei giorni
+scanf(" %d", &giorni);											
+
+int valori [giorni];											//array grande quanto i giorni inseriti 
+int sott= giorni-1;												//variabile per creare array dei giorni-1
+int differenze[sott];											//array grande quanto i giorni inseriti -1
+
+printf("inserisci numero azioni da comprare: ");				//inserimento numero di azioni da acquistare
+scanf(" %d", &k);
+
+for (x=0; x<giorni; x++)										//ciclo for per l'inserimento dei valori giornalieri 
+{
+
+	printf("inserisci valore giornaliero: ");					//inserimento valori giornalieri
+	scanf(" %d", &valori[y]);
+	y++;														//incremento contatore per aumentare la posizione dell'array
+}
+
+/**********************************
+for (x=0; x<=giorni; x++)										//ciclo di controllo
+{
+	printf("%d: ", valori[x]);									//output: controllo che i valori inseriti siano corretti
+}
+***********************************/
+y=0;
+
+for (x=0; x<sott; x++)											//ciclo per il riempimento dell'array delle differenze
+{
+	differenze[y]= valori[y]-valori[y+1];						//calcolo differenze
+	differenze[y]= differenze[y] * (-1);						//moltiplico per -1 per cambiare il segno
+//	printf("differenze: %d \n", differenze[y]);					controllo delle differenze
+	y++;														//incremento contatore per aumentare la psizione dell'array
+}
+
+int temp = 0,sumMax = 0;										//variabili per controllare l'intervallo migliore,uno temporaneo uno che memorizza la somma migliore 
+
+for (a=0; a < sott; a++)										//primo ciclo per trovare l'intervallo migliore
+
+    {
+		for( b=a; b<sott; b++)									//secondo ciclo che somma le varie differenze
+		{
+			if (b==a)											//controllo posizione array
+			{
+				temp= differenze[a];							//la variabile temporanea assume il valore dell'array differenze in posizione a
+
+			}
+			else
+			{
+				temp = temp + differenze[b];					//la variabile temporanea assume il valore di se stessa più il valore dell'array differenze in posizione b
+			}
+
+			if (temp >= sumMax)									//controllo se la variabile temporanea è maggiore o uguale alla somma massima
+				{
+				sumMax = temp;									//somma massima assume il valore della variabile temporanea
+				indiceS=a+1;									//memorizzazione indice di sinistra
+				indiceD=b+1;									//memorizzazione indice di destra
+				}
+
+		}
+	}
+
+	if (sumMax <= 0)											//se la somma massima è minore o uguale a 0 
+		{
+		printf("non comprare mai!\n");							//output: non comprare mai sempre in perdita
+		}
+	else
+		{
+		printf("l'intervallo migliore per comprare e vendere e': comprare il giorno %d e vendere il giorno %d !\n", indiceS, indiceD);		//se la somma massima p maggiore di 0 stampa i giorni migliori in cui comprare e vendere
+		printf("valore massimo %d!\n", sumMax);																								//stampa il valore massimo dell'intervallo
+		guadagno= k*(valori[indiceD] - valori[indiceS-1]);																					//calcolo del guadagno comprando e vendedno nell'intervallo migliore 
+		printf("hai guadagnato %d !", guadagno);																							//stampa il guadagno
+		}
+
+}
